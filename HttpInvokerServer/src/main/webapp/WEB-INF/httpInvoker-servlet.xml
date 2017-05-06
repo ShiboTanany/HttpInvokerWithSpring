@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+">
+    <bean id="userDao"  class="com.mycompany.rmispringserver.daos.UserDao"/>
+    
+    <bean name="x" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+        <property name="serviceInterface" value="com.mycompany.rmispringserver.daos.Dao"/>
+        <property name="service" ref="userDao"/>
+    </bean>
+    
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                
+                <prop key="/salary.ShiboService">x</prop>
+            </props>
+        </property>
+    </bean>
+</beans>
